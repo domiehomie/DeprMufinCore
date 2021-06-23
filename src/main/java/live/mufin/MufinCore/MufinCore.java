@@ -8,12 +8,15 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MufinCore {
 
-  public List<MCM> commands;
+  public String mufinCoreVersion = "1.0";
+
+  public List<MCM> commands = new ArrayList<MCM>();
   public char color;
   public String name;
   public String prefix;
@@ -49,16 +52,9 @@ public class MufinCore {
     this.prefix = prefix;
     this.plugin = plugin;
 
-    this.commands.forEach(cmd -> {
-      plugin.getCommand(cmd.commandName()).setPermission(cmd.permission());
-      plugin.getCommand(cmd.commandName()).setAliases(Arrays.stream(cmd.commandAliases()).toList());
-      plugin.getCommand(cmd.commandName()).setDescription(cmd.description());
-      plugin.getCommand(cmd.commandName()).setUsage(cmd.usage());
-    });
-
     HelpCommand helpcmd = new HelpCommand(this);
-    plugin.getCommand("help").setExecutor(helpcmd);
-    plugin.getCommand("help").setTabCompleter(helpcmd);
+    plugin.getCommand(name).setExecutor(helpcmd);
+    plugin.getCommand(name).setTabCompleter(helpcmd);
   }
 
   /**

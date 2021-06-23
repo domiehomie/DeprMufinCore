@@ -13,9 +13,17 @@ import java.util.List;
 
 public class HelpCommand implements CommandExecutor, TabCompleter {
 
-  private MufinCore core;
+  private final MufinCore core;
   public HelpCommand(MufinCore core) {
     this.core = core;
+  }
+
+  private void sendPluginInfo(CommandSender sender) {
+    core.sendFormattedMessage(sender, "&8=============================");
+    core.sendFormattedMessage(sender, "&" + core.color + core.name + " &7v&" + core.color + core.plugin.getDescription().getVersion() + "&7.");
+    core.sendFormattedMessage(sender, "MufinCore version v&" + core.color + core.mufinCoreVersion + "&7.");
+    core.sendFormattedMessage(sender, "Plugin made by: &" + core.color + core.plugin.getDescription().getAuthors());
+    core.sendFormattedMessage(sender, "&8=============================");
   }
 
   private void sendHelpCommand(CommandSender sender) {
@@ -30,27 +38,29 @@ public class HelpCommand implements CommandExecutor, TabCompleter {
     MCM cmd = core.getMCMFromName(command);
     Formatter f = new Formatter();
     core.sendFormattedMessage(p, "&8=============================");
-    core.sendFormattedMessage(p, f.format("Command: &{0}{1}", core.color, cmd.commandName()).toString());
-    core.sendFormattedMessage(p, f.format("Description: &{0}{1}", core.color, cmd.description()).toString());
+    core.sendFormattedMessage(p, "Command: &"+ core.color + cmd.commandName());
+    core.sendFormattedMessage(p, "Description: &"+ core.color + cmd.description());
     StringBuilder aliases = new StringBuilder();
     for (String alias : cmd.commandAliases()) {
       if(aliases.isEmpty()) aliases.append(alias);
       else aliases.append(", ").append(alias);
     }
-    if (!aliases.isEmpty()) core.sendFormattedMessage(p, f.format("Aliases: &{0}{1}", core.color, aliases.toString()).toString());
-    if (!cmd.permission().isEmpty()) core.sendFormattedMessage(p, f.format("Permission: &{0}{1}", core.color, cmd.permission()).toString());
-    core.sendFormattedMessage(p, f.format("Usage: &{0}{1}", core.color, cmd.usage()).toString());
+    if (!aliases.isEmpty()) core.sendFormattedMessage(p, "Aliases: &"+ core.color + aliases);
+    if (!cmd.permission().isEmpty()) core.sendFormattedMessage(p, "Permission: &"+ core.color + cmd.permission());
+    core.sendFormattedMessage(p, "Usage: &" + core.color + cmd.usage());
     core.sendFormattedMessage(p, "&8=============================");
   }
 
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-    if(!label.equalsIgnoreCase("help")) return true;
+    if(!label.equalsIgnoreCase(core.name)) return true;
     if(args.length == 0) {
+      this.sendPluginInfo(sender);
+    }else if(args.length == 1) {
       this.sendHelpCommand(sender);
     } else {
       try {
-        this.sendCommandHelpCommand(sender, args[0]);
+        this.sendCommandHelpCommand(sender, args[1]);
       }catch(IllegalArgumentException e) {
         core.sendFormattedMessage(sender, "&cUnknown command.");
       }
@@ -66,7 +76,11 @@ public class HelpCommand implements CommandExecutor, TabCompleter {
     });
 
     List<String> results = new ArrayList<String>();
-    if(args.length == 2) {
+    if(args.length == 1) {
+      if("help".toUpperCase().startsWith(args[0].toUpperCase()))
+        results.add("help");
+      return results;
+    } else if(args.length == 2) {
       for(String result : commands) {
         if(result.toUpperCase().startsWith(args[1].toUpperCase()))
           results.add(result);

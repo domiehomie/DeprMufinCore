@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MufinCore {
 
-  public String mufinCoreVersion = "1.0";
+  public String mufinCoreVersion = "1.1";
 
   public List<MCM> commands = new ArrayList<MCM>();
   public char color;
@@ -32,6 +32,10 @@ public class MufinCore {
       }
     }
     throw new IllegalArgumentException("Invalid command name.");
+  }
+
+  public ConfigFile initializeConfig(String fileName) {
+    return new ConfigFile(this, fileName);
   }
 
   public void registerCommand(MCM cmd) {

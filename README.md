@@ -91,3 +91,22 @@ Connection conn = core.mySQL.getConnection();
 #### MongoDB
 
 *Coming soon.*
+
+### Config
+
+To create a config file, simply do the following.
+
+```java
+ConfigFile cfg = core.initializeConfig("configName");
+```
+
+You can then get/set stuff in this config.
+
+```java
+cfg.getConfig().getString("path");
+cfg.getConfig().set("path", object);
+cfg.saveConfig();
+cfg.reloadConfig();
+```
+
+**IMPORTANT**: The config name must not include .yml AND the file must be in the resources folder of your maven project.

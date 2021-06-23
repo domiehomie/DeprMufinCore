@@ -24,6 +24,10 @@ public class MongoDB {
   private final int port;
   private final MufinCore core;
 
+  public MongoClient getClient() {
+    return client;
+  }
+
   public MongoDB(MufinCore core, String username, String database, String password, String host, int port) {
     this.username = username;
     this.database = database;

@@ -24,6 +24,14 @@ public class MongoDB {
   private final int port;
   private final MufinCore core;
 
+  public MongoDatabase getMongoDatabase() {
+    return mongoDatabase;
+  }
+
+  public MongoCollection<Document> getServerCollection() {
+    return serverCollection;
+  }
+
   public MongoClient getClient() {
     return client;
   }

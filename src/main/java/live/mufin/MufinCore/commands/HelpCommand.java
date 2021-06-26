@@ -41,9 +41,11 @@ public class HelpCommand implements CommandExecutor, TabCompleter {
     core.sendFormattedMessage(p, "Command: &"+ core.color + cmd.commandName());
     core.sendFormattedMessage(p, "Description: &"+ core.color + cmd.description());
     StringBuilder aliases = new StringBuilder();
-    for (String alias : cmd.commandAliases()) {
-      if(aliases.isEmpty()) aliases.append(alias);
-      else aliases.append(", ").append(alias);
+    if(cmd.commandAliases() != null) {
+      for (String alias : cmd.commandAliases()) {
+        if (aliases.isEmpty()) aliases.append(alias);
+        else aliases.append(", ").append(alias);
+      }
     }
     if (!aliases.isEmpty()) core.sendFormattedMessage(p, "Aliases: &"+ core.color + aliases);
     if (!cmd.permission().isEmpty()) core.sendFormattedMessage(p, "Permission: &"+ core.color + cmd.permission());

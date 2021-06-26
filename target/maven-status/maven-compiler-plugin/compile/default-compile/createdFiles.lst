@@ -1,0 +1,6 @@
+live/mufin/MufinCore/ConfigFile.class
+live/mufin/MufinCore/databases/MySQL.class
+live/mufin/MufinCore/commands/MCM.class
+live/mufin/MufinCore/MufinCore.class
+live/mufin/MufinCore/databases/MongoDB.class
+live/mufin/MufinCore/commands/HelpCommand.class

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MufinCore {
 
-  public String mufinCoreVersion = "1.3";
+  public String mufinCoreVersion = "1.4";
 
   public List<MCM> commands = new ArrayList<MCM>();
   public char color;
@@ -44,6 +44,10 @@ public class MufinCore {
 
   public void registerCommands(MCM[] cmds) {
     commands.addAll(Arrays.asList(cmds));
+  }
+
+  public void sendDividerMessage(CommandSender sender) {
+    this.sendFormattedMessage(sender, "&8=============================");
   }
 
   public void sendFormattedMessage(CommandSender sender, String message) {

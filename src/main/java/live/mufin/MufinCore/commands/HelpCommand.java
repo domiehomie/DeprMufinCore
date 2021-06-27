@@ -29,28 +29,33 @@ public class HelpCommand implements CommandExecutor, TabCompleter {
   private void sendHelpCommand(CommandSender sender) {
     core.sendFormattedMessage(sender, "&8=============================");
     core.commands.forEach(cmd -> {
-      core.sendFormattedMessage(sender, "&" + core.color + "/" + cmd.commandName() + "&7 - " + cmd.description());
+      if(sender.hasPermission(cmd.permission()))
+        core.sendFormattedMessage(sender, "&" + core.color + "/" + cmd.commandName() + "&7 - " + cmd.description());
     });
     core.sendFormattedMessage(sender, "&8=============================");
   }
 
   private void sendCommandHelpCommand(CommandSender p, String command) {
     MCM cmd = core.getMCMFromName(command);
-    Formatter f = new Formatter();
-    core.sendFormattedMessage(p, "&8=============================");
-    core.sendFormattedMessage(p, "Command: &"+ core.color + cmd.commandName());
-    core.sendFormattedMessage(p, "Description: &"+ core.color + cmd.description());
-    StringBuilder aliases = new StringBuilder();
-    if(cmd.commandAliases() != null) {
-      for (String alias : cmd.commandAliases()) {
-        if (aliases.isEmpty()) aliases.append(alias);
-        else aliases.append(", ").append(alias);
+    if(p.hasPermission(cmd.permission())) {
+      Formatter f = new Formatter();
+      core.sendFormattedMessage(p, "&8=============================");
+      core.sendFormattedMessage(p, "Command: &" + core.color + cmd.commandName());
+      core.sendFormattedMessage(p, "Description: &" + core.color + cmd.description());
+      StringBuilder aliases = new StringBuilder();
+      if (cmd.commandAliases() != null) {
+        for (String alias : cmd.commandAliases()) {
+          if (aliases.isEmpty()) aliases.append(alias);
+          else aliases.append(", ").append(alias);
+        }
       }
+      if (!aliases.isEmpty()) core.sendFormattedMessage(p, "Aliases: &" + core.color + aliases);
+      if (!cmd.permission().isEmpty()) core.sendFormattedMessage(p, "Permission: &" + core.color + cmd.permission());
+      core.sendFormattedMessage(p, "Usage: &" + core.color + cmd.usage());
+      core.sendFormattedMessage(p, "&8=============================");
+    } else {
+      core.sendFormattedMessage(p, "&cInvalid permission.");
     }
-    if (!aliases.isEmpty()) core.sendFormattedMessage(p, "Aliases: &"+ core.color + aliases);
-    if (!cmd.permission().isEmpty()) core.sendFormattedMessage(p, "Permission: &"+ core.color + cmd.permission());
-    core.sendFormattedMessage(p, "Usage: &" + core.color + cmd.usage());
-    core.sendFormattedMessage(p, "&8=============================");
   }
 
   @Override

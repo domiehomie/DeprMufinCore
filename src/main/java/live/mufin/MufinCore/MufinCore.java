@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MufinCore {
 
-  public String mufinCoreVersion = "1.4";
+  public String mufinCoreVersion = "1.5";
 
   public List<MCM> commands = new ArrayList<MCM>();
   public char color;

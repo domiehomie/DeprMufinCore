@@ -1,7 +1,9 @@
 package live.mufin.MufinCore;
 
+import live.mufin.MufinCore.commands.CommandFinder;
 import live.mufin.MufinCore.commands.HelpCommand;
-import live.mufin.MufinCore.commands.MCM;
+import live.mufin.MufinCore.commands.MCMD;
+import live.mufin.MufinCore.commands.MuffinCommand;
 import live.mufin.MufinCore.databases.MongoDB;
 import live.mufin.MufinCore.databases.MySQL;
 import org.bukkit.ChatColor;
@@ -9,14 +11,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MufinCore {
 
   public String mufinCoreVersion = "1.5";
 
-  public List<MCM> commands = new ArrayList<MCM>();
+  public List<MCMD> commands = new ArrayList<MCMD>();
   public char color;
   public String name;
   public String prefix;
@@ -24,10 +25,12 @@ public class MufinCore {
   public HelpCommand helpCommand = new HelpCommand(this);
   public MongoDB mongoDB = null;
   public MySQL mySQL = null;
+  public CommandFinder cmdFinder;
+  public List<MuffinCommand> commandClasses = new ArrayList<>();
 
-  public MCM getMCMFromName(String name) {
-    for(MCM cmd : commands) {
-      if(cmd.commandName().equalsIgnoreCase(name)) {
+  public MCMD getMCMDFromName(String name) {
+    for(MCMD cmd : commands) {
+      if(cmd.name().equalsIgnoreCase(name)) {
         return cmd;
       }
     }
@@ -36,14 +39,6 @@ public class MufinCore {
 
   public ConfigFile initializeConfig(String fileName) {
     return new ConfigFile(this, fileName);
-  }
-
-  public void registerCommand(MCM cmd) {
-    commands.add(cmd);
-  }
-
-  public void registerCommands(MCM[] cmds) {
-    commands.addAll(Arrays.asList(cmds));
   }
 
   public void sendDividerMessage(CommandSender sender) {
@@ -59,6 +54,8 @@ public class MufinCore {
     this.name = name;
     this.prefix = prefix;
     this.plugin = plugin;
+    cmdFinder = new CommandFinder(this, plugin.getClass().getPackageName());
+
 
     HelpCommand helpcmd = new HelpCommand(this);
     plugin.getCommand(name).setExecutor(helpcmd);

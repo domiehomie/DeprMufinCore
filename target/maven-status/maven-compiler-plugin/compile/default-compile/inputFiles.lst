@@ -1,6 +1,8 @@
 /home/muffin/Documents/Programmeren/MufinCore/src/main/java/live/mufin/MufinCore/ConfigFile.java
+/home/muffin/Documents/Programmeren/MufinCore/src/main/java/live/mufin/MufinCore/commands/CommandFinder.java
+/home/muffin/Documents/Programmeren/MufinCore/src/main/java/live/mufin/MufinCore/commands/MuffinCommand.java
 /home/muffin/Documents/Programmeren/MufinCore/src/main/java/live/mufin/MufinCore/databases/MySQL.java
 /home/muffin/Documents/Programmeren/MufinCore/src/main/java/live/mufin/MufinCore/MufinCore.java
 /home/muffin/Documents/Programmeren/MufinCore/src/main/java/live/mufin/MufinCore/commands/HelpCommand.java
-/home/muffin/Documents/Programmeren/MufinCore/src/main/java/live/mufin/MufinCore/commands/MCM.java
+/home/muffin/Documents/Programmeren/MufinCore/src/main/java/live/mufin/MufinCore/commands/MCMD.java
 /home/muffin/Documents/Programmeren/MufinCore/src/main/java/live/mufin/MufinCore/databases/MongoDB.java

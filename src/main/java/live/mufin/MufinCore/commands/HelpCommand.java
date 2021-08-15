@@ -1,3 +1,4 @@
+
 package live.mufin.MufinCore.commands;
 
 import live.mufin.MufinCore.MufinCore;
@@ -5,7 +6,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -30,21 +30,21 @@ public class HelpCommand implements CommandExecutor, TabCompleter {
     core.sendFormattedMessage(sender, "&8=============================");
     core.commands.forEach(cmd -> {
       if(sender.hasPermission(cmd.permission()))
-        core.sendFormattedMessage(sender, "&" + core.color + "/" + cmd.commandName() + "&7 - " + cmd.description());
+        core.sendFormattedMessage(sender, "&" + core.color + "/" + cmd.name() + "&7 - " + cmd.description());
     });
     core.sendFormattedMessage(sender, "&8=============================");
   }
 
   private void sendCommandHelpCommand(CommandSender p, String command) {
-    MCM cmd = core.getMCMFromName(command);
+    MCMD cmd = core.getMCMDFromName(command);
     if(p.hasPermission(cmd.permission())) {
       Formatter f = new Formatter();
       core.sendFormattedMessage(p, "&8=============================");
-      core.sendFormattedMessage(p, "Command: &" + core.color + cmd.commandName());
+      core.sendFormattedMessage(p, "Command: &" + core.color + cmd.name());
       core.sendFormattedMessage(p, "Description: &" + core.color + cmd.description());
       StringBuilder aliases = new StringBuilder();
-      if (cmd.commandAliases() != null) {
-        for (String alias : cmd.commandAliases()) {
+      if (cmd.aliases() != null) {
+        for (String alias : cmd.aliases()) {
           if (aliases.isEmpty()) aliases.append(alias);
           else aliases.append(", ").append(alias);
         }
@@ -79,7 +79,7 @@ public class HelpCommand implements CommandExecutor, TabCompleter {
   public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
     List<String> commands = new ArrayList<String>();
     core.commands.forEach(cmd -> {
-      commands.add(cmd.commandName());
+      commands.add(cmd.name());
     });
 
     List<String> results = new ArrayList<String>();

@@ -23,6 +23,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>${project.artifactId}-2.1.${build.id}</finalName>
     </build>
 
     <properties>

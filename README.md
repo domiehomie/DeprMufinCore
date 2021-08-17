@@ -1,3 +1,5 @@
+![TeamCity build status](https://tc.mufin.live/app/rest/builds/buildType:id:MufinCore_Build/statusIcon.svg)
+
 # MufinCore
  Core library to make spigot developing easier!
 

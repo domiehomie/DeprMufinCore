@@ -8,6 +8,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+
+/**
+ * A simple way to create config files
+ * @deprecated New config system in the works
+ */
 public class ConfigFile {
 
     private MufinCore core;
@@ -15,6 +20,12 @@ public class ConfigFile {
     private File configFile = null;
     private String fileName;
 
+
+    /**
+     * @deprecated New config system in the works
+     * @param core Your instance of MufinCore
+     * @param fileName the name of your file Without `.yml`
+     */
     public ConfigFile(MufinCore core, String fileName) {
         this.core = core;
         this.fileName = fileName + ".yml";

@@ -1,5 +1,6 @@
 package live.mufin.MufinCore.commands;
 
+import live.mufin.MufinCore.MufinCore;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,8 +16,10 @@ import java.util.stream.Collectors;
 public class MuffinCommand extends BukkitCommand {
     private CommandExecutor ex;
     private TabCompleter tab;
+    private MCMD cmd;
     public MuffinCommand(MCMD cmd, CommandExecutor ex) {
         super(cmd.name(), cmd.description(), cmd.usage(), Arrays.asList(cmd.aliases()));
+        this.cmd = cmd;
         this.ex = ex;
     }
 
@@ -37,6 +40,13 @@ public class MuffinCommand extends BukkitCommand {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
+        if(cmd.permission().isBlank()) {
+            return ex.onCommand(sender, this, commandLabel, args);
+        }
+        if(!sender.hasPermission(cmd.permission())) {
+            sender.sendMessage("&cInvalid permission.");
+            return true;
+        }
         return ex.onCommand(sender, this, commandLabel, args);
     }
 }

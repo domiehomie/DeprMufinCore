@@ -6,7 +6,7 @@
 
     <groupId>live.mufin</groupId>
     <artifactId>mufincore</artifactId>
-    <version>1.6.1</version>
+    <version>1.6.3</version>
     <build>
         <plugins>
             <plugin>
@@ -23,7 +23,8 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>${project.artifactId}-2.1.${build.id}</finalName>
+        <!--suppress UnresolvedMavenProperty -->
+        <finalName>${project.artifactId}-1.${build.id}</finalName>
     </build>
 
     <properties>

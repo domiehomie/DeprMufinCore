@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MufinCore {
 
-  public String mufinCoreVersion = "1.5";
+  public String mufinCoreVersion = "1.6.3";
 
   public List<MCMD> commands = new ArrayList<MCMD>();
   public char color;
@@ -58,8 +58,10 @@ public class MufinCore {
 
 
     HelpCommand helpcmd = new HelpCommand(this);
-    plugin.getCommand(name).setExecutor(helpcmd);
-    plugin.getCommand(name).setTabCompleter(helpcmd);
+    if(plugin.getCommand(name.toLowerCase()) != null) {
+      plugin.getCommand(name.toLowerCase()).setExecutor(helpcmd);
+      plugin.getCommand(name.toLowerCase()).setTabCompleter(helpcmd);
+    }
   }
 
   /**
